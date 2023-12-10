@@ -1,0 +1,9 @@
+# Trash
+.DS_Store
+Thumbs.db
+tmp
+
+# scripts
+node_modules
+*.log
+*.pem
