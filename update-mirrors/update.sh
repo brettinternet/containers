@@ -21,8 +21,6 @@ function update {
   REPO_PARENT_DIR="$WORKING_DIRECTORY/$REPO_OWNER"
   REPO_PATH="$REPO_PARENT_DIR/$REPO_NAME"
 
-  git config --global --add safe.directory $REPO_PATH
-
   if [ -d "$REPO_PATH" ]; then
     echo "Updating mirror in $REPO_PATH"
     git -C $REPO_PATH remote update -p
