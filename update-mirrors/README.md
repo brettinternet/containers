@@ -3,9 +3,10 @@
 A simple cronjob to update git mirrors. Curl is available for pre/post commands.
 
 ```sh
-docker create -d \
+docker create \
   -v ./git:/repos
   -e WORKING_DIRECTORY=/repos \
+  -e RUN_ON_STARTUP="true" \
   -e GIT_REMOTE_1=https://github.com/brettinternet/containers \
   -e GIT_REMOTE_2 https://github.com/brettinternet/homelab \
   -e POST_COMMANDS_SUCCESS "curl -d 'Backup successful 😎' ntfy.sh/mytopic" \
