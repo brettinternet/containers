@@ -14,7 +14,7 @@ docker create -d \
   ghcr.io/brettinternet/snapraid
 ```
 
-Also available in the `entrypoint.sh` are slots for pre and post commands:
+Also available in the `start.sh` are slots for pre and post commands:
 
 ```yaml
 PRE_COMMANDS: |-
@@ -23,12 +23,9 @@ PRE_COMMANDS: |-
 POST_COMMANDS_SUCCESS: |-
   curl -d "We backed it up!" ntfy.sh/mytopic
 
-POST_COMMANDS_FAILURE: |-
-  /config/mail-failure.sh
+POST_COMMANDS_FAILURE: /config/mail-failure.sh
 
-POST_COMMANDS_INCOMPLETE: |-
-  /config/uh-oh.sh
+POST_COMMANDS_INCOMPLETE: /config/uh-oh.sh
 
-POST_COMMANDS_EXIT: |-
-  docker start my_container
+POST_COMMANDS_EXIT: snapraid status
 ```

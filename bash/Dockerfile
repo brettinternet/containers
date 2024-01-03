@@ -1,4 +1,4 @@
-FROM bash:alpine3.16
+FROM bash:latest
 
 RUN apk --update add git curl jq dumb-init
 
