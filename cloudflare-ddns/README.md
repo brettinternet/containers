@@ -1,4 +1,4 @@
-# Update mirrors
+# Cloudflare DDNS
 
 A simple cronjob to update Cloudflare record with an IPv4 address.
 
