@@ -4,7 +4,7 @@ A simple cronjob to update git mirrors. Curl is available for pre/post commands.
 
 ```sh
 docker create \
-  -v ./git:/repos
+  -v ./git:/repos \
   -e WORKING_DIRECTORY=/repos \
   -e RUN_ON_STARTUP="true" \
   -e GIT_REMOTE_1=https://github.com/brettinternet/containers \
