@@ -4,7 +4,7 @@
 
 Use [cgit options](https://git.zx2c4.com/cgit/tree/cgitrc.5.txt) to configure the server.
 
-Example `docker-compose.yaml`
+Example `docker-compose.yaml`:
 
 ```yaml
 services:

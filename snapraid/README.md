@@ -3,13 +3,13 @@
 This [SnapRAID](https://www.snapraid.it/) image uses a python [runner](https://github.com/Chronial/snapraid-runner) to automate the backup syncs. Bash, curl, jq and dumb-init entrypoint are also available.
 
 ```sh
-docker create -d \
+docker run --rm \
   -v /mnt:/mnt \
   # https://github.com/amadvance/snapraid/blob/master/snapraid.conf.example
   -v snapraid.conf:/config/snapraid.conf
   # https://github.com/Chronial/snapraid-runner/blob/master/snapraid-runner.conf.example
   -v snapraid-runner.conf:/config/snapraid-runner.conf
-  -e POST_COMMANDS_SUCCESS "curl -d 'Backup successful 😀' ntfy.sh/mytopic"
+  -e POST_COMMANDS_SUCCESS="curl -d 'Backup successful 😀' ntfy.sh/mytopic"
   --name snapraid
   ghcr.io/brettinternet/snapraid
 ```
