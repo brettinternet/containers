@@ -9,7 +9,7 @@ docker create \
   -e RUN_ON_STARTUP="true" \
   -e GIT_REMOTE_1=https://github.com/brettinternet/containers \
   -e GIT_REMOTE_2 https://github.com/brettinternet/homelab \
-  -e POST_COMMANDS_SUCCESS "curl -d 'Backup successful 😎' ntfy.sh/mytopic" \
+  -e POST_COMMANDS_SUCCESS "curl -d 'Run successful 😎' ntfy.sh/mytopic" \
   -e CRON="*/10 * * * *" \ # every 10th minute
   --name update-mirrors \
   ghcr.io/brettinternet/update-mirrors
@@ -22,7 +22,7 @@ PRE_COMMANDS: |-
   curl -d "Oh boy, here we go again..." https://healthchecks.io/start
 
 POST_COMMANDS_SUCCESS: |-
-  curl -d "We backed it up!" ntfy.sh/mytopic
+  curl -d "Woah it ran! 😮‍💨" ntfy.sh/mytopic
 
 POST_COMMANDS_FAILURE: curl -d "oh no 🫨" ntfy.sh/mytopic
 
