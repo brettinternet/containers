@@ -32,7 +32,7 @@ function run {
 
   old_ip4=$(echo "$record_ipv4" | jq --raw-output '.result[0] | .content')
   if [[ "${current_ipv4}" == "${old_ip4}" ]]; then
-      printf "%s - IP Address '%s' has not changed" "$(date -u)" "${current_ipv4}"
+      printf "%s - IP Address '%s' has not changed\n" "$(date -u)" "${current_ipv4}"
       return 0
   fi
 
@@ -46,10 +46,10 @@ function run {
   )
 
   if [[ "$(echo "$update_ipv4" | jq --raw-output '.success')" == "true" ]]; then
-      printf "%s - Success - IP Address '%s' has been updated" "$(date -u)" "${current_ipv4}"
+      printf "%s - Success - IP Address '%s' has been updated\n" "$(date -u)" "${current_ipv4}"
       return 0
   else
-      printf "%s - Failed - Updating IP Address '%s' has failed" "$(date -u)" "${current_ipv4}"
+      printf "%s - Failed - Updating IP Address '%s' has failed\n" "$(date -u)" "${current_ipv4}"
       return 1
   fi
 }
