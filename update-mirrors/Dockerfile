@@ -7,7 +7,7 @@ RUN git config --global --add safe.directory '*'
 ENV WORKING_DIRECTORY="/repos"
 ENV RUN_ON_STARTUP="true"
 
-COPY start.sh update.sh /
+COPY start.sh run.sh /
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["/start.sh"]

@@ -10,6 +10,6 @@ SCHEDULE=${CRON:-"*/10 * * * *"}
 
 echo "Schedule: $SCHEDULE"
 
-echo "${SCHEDULE} bash /run.sh" >> /etc/crontabs/root
+echo "${SCHEDULE} bash /run.sh" > /etc/crontabs/root
 
 crond -f -l 2

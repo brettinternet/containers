@@ -15,7 +15,7 @@ docker run --rm \
   ghcr.io/brettinternet/update-mirrors
 ```
 
-These environment variables are also available in the `update.sh` as slots for pre/post commands:
+These environment variables are also available in the `run.sh` as slots for pre/post commands:
 
 ```yaml
 PRE_COMMANDS: |-
