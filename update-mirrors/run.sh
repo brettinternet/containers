@@ -15,8 +15,7 @@ function update {
   WORKING_DIRECTORY="${WORKING_DIRECTORY:-"/repos"}"
   WORKING_DIRECTORY=$(echo "$WORKING_DIRECTORY" | sed 's:/*$::')
   REMOTE="$1"
-  BASENAME=$(basename $REMOTE)
-  REPO_NAME="${BASENAME%.*}"
+  REPO_NAME=$(basename $REMOTE .git)
   REPO_OWNER=$(echo $REMOTE | awk -F "/" '{print $4}')
   REPO_PARENT_DIR="$WORKING_DIRECTORY/$REPO_OWNER"
   REPO_PATH="$REPO_PARENT_DIR/$REPO_NAME"
