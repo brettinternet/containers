@@ -7,7 +7,6 @@ root-title=$ROOT_TITLE
 root-desc=$ROOT_DESC
 root-readme=$ROOT_README
 
-# Fast syntax highlighting optimized for cgit
 source-filter=/usr/lib/cgit/filters/syntax-highlighting.sh
 about-filter=/usr/lib/cgit/filters/about-formatting.sh
 

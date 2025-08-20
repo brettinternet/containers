@@ -3,12 +3,14 @@
 FROM alpine:latest
 
 RUN set -xe && \
-  apk add --no-cache --purge -uU \
-  curl git cgit highlight py3-pygments python3 py3-markdown markdown \
-  libzip libcrypto3 libssl3 \
-  fcgiwrap spawn-fcgi nginx gettext dumb-init && \
-  rm -rf /var/cache/apk/* /tmp/* && \
-  mkdir -p /srv/git
+    apk add --no-cache --purge -uU \
+    curl git cgit highlight python3 py3-markdown markdown \
+    libzip libcrypto3 libssl3 \
+    fcgiwrap spawn-fcgi nginx gettext dumb-init && \
+    rm -rf /var/cache/apk/* /tmp/* && \
+    mkdir -p /srv/git && \
+    sed -i '118 s/^/#/' /usr/lib/cgit/filters/syntax-highlighting.sh && \
+    echo 'exec highlight --force --inline-css -f -I -O xhtml -S "$EXTENSION" 2>/dev/null' >> /usr/lib/cgit/filters/syntax-highlighting.sh
 
 ENV ROOT_TITLE="Git" \
     ROOT_DESC="My git repositories" \
