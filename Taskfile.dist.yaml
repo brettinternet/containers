@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+dotenv: [.env]
+
+includes:
+  setup: .taskfiles/setup.yaml
+
+tasks:
+  default:
+    silent: true
+    cmd: task -l
+
+  init:
+    desc: Install dependencies and setup environment
+    aliases: [setup]
+    deps:
+      - task: setup:init
+
+  check:
+    desc: Run all checks
+    cmds:
+      - dprint check
+
+  fix:
+    desc: Run all fixes
+    cmds:
+      - dprint fmt

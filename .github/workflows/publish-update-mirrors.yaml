@@ -1,3 +1,6 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
 name: Build and publish update-mirrors image
 
 on: # yamllint disable-line rule:truthy
@@ -7,6 +10,7 @@ on: # yamllint disable-line rule:truthy
     paths:
       - update-mirrors/*
       - .github/workflows/publish-update-mirrors.yaml
+  workflow_dispatch:
 
 env:
   DOCKER_USERNAME: brettinternet

@@ -9,7 +9,11 @@ RUN set -xe && \
   rm -rf /var/cache/apk/* /tmp/* && \
   mkdir -p /srv/git
 
-ENV ROOT_TITLE="Git" ROOT_DESC="My git repositories" SECTION_FROM_STARTPATH=0 MAX_REPO_COUNT=50 NOPLAINEMAIL=1
+ENV ROOT_TITLE="Git" \
+    ROOT_DESC="My git repositories" \
+    SECTION_FROM_STARTPATH=0 \
+    MAX_REPO_COUNT=50 \
+    NOPLAINEMAIL=1
 COPY --chown=nginx cgit.png /usr/share/webapps/cgit/
 COPY --chown=nginx favicon.ico /usr/share/webapps/cgit/
 COPY cgitrc.template /etc/

@@ -7,3 +7,21 @@ tmp
 node_modules
 *.log
 *.pem
+
+# Env vars
+.env
+
+# Container
+docker/data
+
+# Tools
+/Taskfile.yaml
+/Taskfile.yml
+mise.local.toml
+mise.*.local.toml
+
+# AI
+.claude/settings.local.json
+.opencode/
+CLAUDE.local.md
+GEMINI.local.md
