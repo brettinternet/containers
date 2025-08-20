@@ -13,7 +13,8 @@ ENV ROOT_TITLE="Git" \
     ROOT_DESC="My git repositories" \
     SECTION_FROM_STARTPATH=0 \
     MAX_REPO_COUNT=50 \
-    NOPLAINEMAIL=1
+    NOPLAINEMAIL=1 \
+    ENABLE_HTTP_CLONE=0
 COPY --chown=nginx cgit.png /usr/share/webapps/cgit/
 COPY --chown=nginx favicon.ico /usr/share/webapps/cgit/
 COPY cgitrc.template /etc/
