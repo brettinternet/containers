@@ -1,0 +1,126 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/docker/cli/master/cli/compose/schema/data/config_schema_v3.13.json
+x-options: &options
+  tty: true
+  networks: [default]
+  env_file: .env
+  environment: &environment
+    TZ: "${TIMEZONE:-America/Denver}"
+  deploy: &deploy
+    restart_policy:
+      condition: unless-stopped
+
+services:
+  traefik:
+    <<: *options
+    image: traefik:v3.5
+    profiles: [services]
+    command:
+      - --log.level=INFO
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.file.directory=/etc/traefik
+      - --providers.file.watch=true
+      - --entrypoints.web.address=:80
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    ports:
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./docker/traefik:/etc/traefik
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.traefik-dashboard.rule: Host(`traefik.${DOMAIN}`)
+      traefik.http.routers.traefik-dashboard.service: traefik-dashboard-service
+      traefik.http.routers.traefik-dashboard.entrypoints: web
+      traefik.http.services.traefik-dashboard-service.loadbalancer.server.port: 8080
+
+  cgit:
+    <<: *options
+    build:
+      context: .
+      dockerfile: cgit/Dockerfile
+    container_name: cgit
+    environment:
+      <<: *environment
+      ROOT_TITLE: "git.${DOMAIN}"
+      ROOT_DESC: My mirrors
+      ROOT_README: /srv/git/README.md
+      SECTION_FROM_STARTPATH: 1
+      NOPLAINEMAIL: 1
+    volumes:
+      - ./docker/data/git:/srv/git
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.cgit.rule: Host(`git.${DOMAIN}`)
+      traefik.http.routers.cgit.entrypoints: web
+      traefik.http.services.cgit.loadbalancer.server.port: 80
+    depends_on:
+      - gitolite
+
+  gitolite:
+    <<: *options
+    build:
+      context: .
+      dockerfile: gitolite/Dockerfile
+    container_name: gitolite
+    ports:
+      - "2222:22"
+    volumes:
+      - ./docker/data/gitolite:/var/lib/git
+      - ./docker/data/ssh_keys:/etc/ssh/keys
+
+  cloudflare-ddns:
+    <<: *options
+    build:
+      context: .
+      dockerfile: cloudflare-ddns/Dockerfile
+    container_name: cloudflare-ddns
+    environment:
+      <<: *environment
+      # Add your Cloudflare credentials to .env:
+      # CF_API_TOKEN=your_token_here
+      # CF_ZONE_ID=your_zone_id_here
+      # CF_RECORD_NAME=your_record_name_here
+
+  update-mirrors:
+    <<: *options
+    build:
+      context: .
+      dockerfile: update-mirrors/Dockerfile
+    container_name: update-mirrors
+    volumes:
+      - ./docker/data/git:/srv/git
+    depends_on:
+      - gitolite
+
+  snapraid:
+    <<: *options
+    build:
+      context: .
+      dockerfile: snapraid/Dockerfile
+    container_name: snapraid
+    volumes:
+      - ./docker/data/snapraid:/config
+      # Add your data volumes to .env or uncomment and customize:
+      # - /path/to/data1:/data1
+      # - /path/to/data2:/data2
+      # - /path/to/parity:/parity
+
+  bash:
+    <<: *options
+    build:
+      context: .
+      dockerfile: bash/Dockerfile
+    container_name: bash-utils
+    profiles: [tools]
+
+  node:
+    <<: *options
+    build:
+      context: .
+      dockerfile: node/Dockerfile
+    container_name: node-utils
+    profiles: [tools]
