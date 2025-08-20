@@ -9,7 +9,6 @@ root-readme=$ROOT_README
 
 source-filter=/usr/lib/cgit/filters/syntax-highlighting.py
 about-filter=/usr/lib/cgit/filters/about-formatting.sh
-formatter = HtmlFormatter(encoding='utf-8', style='native')
 
 # Cache
 cache-root=/var/cache/cgit
