@@ -20,6 +20,7 @@ COPY --chown=nginx favicon.ico /usr/share/webapps/cgit/
 COPY cgitrc.template /etc/
 COPY nginx.conf /etc/nginx/
 COPY debug-filter.py /usr/local/bin/debug-filter.py
+COPY robust-syntax-filter.py /usr/local/bin/robust-syntax-filter.py
 COPY start.sh /start.sh
 
 VOLUME /var/lib/git /var/cache/cgit
