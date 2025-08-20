@@ -5,6 +5,7 @@ FROM alpine:latest
 RUN set -xe && \
   apk add --no-cache --purge -uU \
   curl git cgit highlight py3-pygments python3 py3-markdown markdown \
+  libzip libcrypto3 libssl3 \
   fcgiwrap spawn-fcgi nginx gettext dumb-init && \
   rm -rf /var/cache/apk/* /tmp/* && \
   mkdir -p /srv/git
